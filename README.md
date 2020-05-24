@@ -59,11 +59,22 @@ dpacker ()
 
 dterraform () 
 {
-  docker run --rm \
+  source ~/.rcs/ovh.rc
+  sudo docker run --rm \
              -w /opt \
              -v $(pwd):/opt/ \
              -v ~/.aws:/root/.aws \
              -v ~/.ssh:/root/.ssh \
+             --env OS_AUTH_URL=$OS_AUTH_URL \
+             --env OS_PROJECT_ID=$OS_AUTH_URL \
+             --env OS_PROJECT_NAME=$OS_PROJECT_NAME \
+             --env OS_USER_DOMAIN_NAME=$OS_USER_DOMAIN_NAME \
+             --env OS_PROJECT_DOMAIN_ID=$OS_PROJECT_DOMAIN_ID \
+             --env OS_USERNAME=$OS_USERNAME \
+             --env OS_PASSWORD=$OS_PASSWORD \
+             --env OS_REGION_NAME=$OS_REGION_NAME \
+             --env OS_INTERFACE=$OS_INTERFACE \
+             --env OS_IDENTITY_API_VERSION=$OS_IDENTITY_API_VERSION \
              codebarber/ansible-packer-terraform terraform $@
 }
 ```
